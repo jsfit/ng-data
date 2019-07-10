@@ -1,0 +1,25 @@
+{
+  "name": "ng-data",
+  "version": "1.0.0",
+  "description": "Angular data generator using js-data",
+  "main": "index.js",
+  "scripts": {
+    "test": "ng-data-test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jsfit/ng-data.git"
+  },
+  "keywords": [
+    "ng-data"
+  ],
+  "author": "MUHAMMAD ILYAS",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jsfit/ng-data/issues"
+  },
+  "homepage": "https://github.com/jsfit/ng-data#readme",
+  "bin": {
+    "ng-data": "./cli.js"
+  }
+}
