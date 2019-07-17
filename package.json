@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/jsfit/ng-data#readme",
   "bin": {
-    "ng-data": "./bin/cli-main.js"
+    "ngdata": "./bin/cli-main.js"
   },
   "bundleDependencies": false,
   "config": {

@@ -61,10 +61,7 @@ module.exports = class ModelGenerator extends ArtifactGenerator {
       'number',
       'boolean',
       'object',
-      'array',
       'date',
-      'buffer',
-      'geopoint',
       'any',
     ];
 
@@ -233,85 +230,37 @@ module.exports = class ModelGenerator extends ArtifactGenerator {
         );
       }
     }
+    let typeOfModel = { modelBaseClass: 'Model' };
+    return Object.assign(this.artifactInfo, typeOfModel);
+    
 
-    return this.prompt([
-      {
-        type: 'list',
-        name: 'modelBaseClass',
-        message: PROMPT_BASE_MODEL_CLASS,
-        choices: availableModelBaseClasses,
-        when: !this.artifactInfo.modelBaseClass,
-        default: availableModelBaseClasses[0],
-        validate: utils.validateClassName,
-      },
-    ])
-      .then(props => {
-        if (this.isBaseClassChecked) return;
-        if (typeof props.modelBaseClass === 'object')
-          props.modelBaseClass = props.modelBaseClass.value;
-        // Find whether the specified base class is one of the available base
-        // class list
-        const isValidBase = this.isValidBaseClass(
-          availableModelBaseClasses,
-          props.modelBaseClass,
-          false,
-        );
-        if (!props.modelBaseClass && !isValidBase) {
-          this.exit(
-            new Error(
-              `${ERROR_NO_MODELS_FOUND} ${
-                this.artifactInfo.modelDir
-              }.${chalk.yellow(
-                'Please visit https://loopback.io/doc/en/lb4/Model-generator.html for information on how models are discovered',
-              )}`,
-            ),
-          );
-        }
-
-        Object.assign(this.artifactInfo, props);
-        debug(`props after model base class prompt: ${inspect(props)}`);
-        return props;
-      })
-      .catch(err => {
-        debug(`Error during model base class prompt: ${err}`);
-        return this.exit(err);
-      });
+        
+    //     debug(`props after model base class prompt: ${inspect(props)}`);
+    //     return props;
+    //   })
+    //   .catch(err => {
+    //     debug(`Error during model base class prompt: ${err}`);
+    //     return this.exit(err);
+    //   });
   }
 
   async promptStrictMode() {
     if (this.shouldExit()) return false;
-    return this.prompt([
-      {
-        name: 'allowAdditionalProperties',
-        message: 'Allow additional (free-form) properties?',
-        type: 'confirm',
-        default: false,
-        when: !this.artifactInfo.allowAdditionalProperties,
-      },
-    ])
-      .then(setting => {
-        Object.assign(this.artifactInfo, setting);
 
-        if (this.artifactInfo.allowAdditionalProperties) {
-          Object.assign(this.artifactInfo.modelSettings, {strict: false});
-        }
-        // inform user what model/file names will be created
-        super.promptClassFileName(
-          'model',
-          'models',
+    let setting = { allowAdditionalProperties: false };
+    super.promptClassFileName(
+      'model',
+      'models',
+      this.artifactInfo.className,
+      );
+      
+      this.log(
+        `Let's add a property to ${chalk.yellow(
           this.artifactInfo.className,
-        );
-
-        this.log(
-          `Let's add a property to ${chalk.yellow(
-            this.artifactInfo.className,
           )}`,
-        );
-      })
-      .catch(err => {
-        debug(`Error during model strict mode prompt: ${err}`);
-        return this.exit(err);
-      });
+      );
+    
+    return   Object.assign(this.artifactInfo, setting);
   }
 
   // Check whether the base class name is a valid one.
@@ -391,32 +340,7 @@ module.exports = class ModelGenerator extends ArtifactGenerator {
           when: answers => {
             return answers.type === 'array';
           },
-        },
-        {
-          name: 'id',
-          message: `Is ${chalk.yellow(this.propName)} the ID property?`,
-          type: 'confirm',
-          default: false,
-          when: answers => {
-            return (
-              !this.idFieldSet &&
-              !['array', 'object', 'buffer'].includes(answers.type)
-            );
-          },
-        },
-        {
-          name: 'required',
-          message: 'Is it required?:',
-          type: 'confirm',
-          default: false,
-        },
-        {
-          name: 'default',
-          message: `Default value ${chalk.yellow('[leave blank for none]')}:`,
-          when: answers => {
-            return ![null, 'buffer', 'any'].includes(answers.type);
-          },
-        },
+        }
       ];
 
       const answers = await this.prompt(prompts);
