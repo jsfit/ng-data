@@ -131,7 +131,7 @@ module.exports = class ModelGenerator extends ArtifactGenerator {
       return this.exit(
         new Error(
           `${s}.${chalk.yellow(
-            'Please visit jsd-data.iofor information on how models are discovered',
+            'Please visit jsd-data.io for information on how models are discovered',
           )}`,
         ),
       );
