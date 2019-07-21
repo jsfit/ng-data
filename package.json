@@ -1,6 +1,6 @@
 {
   "name": "angular-jsdata-generator",
-  "version": "1.0.4",
+  "version": "1.0.8",
   "description": "Angular data generator using js-data",
   "main": "index.js",
   "scripts": {
