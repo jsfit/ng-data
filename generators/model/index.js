@@ -1,7 +1,3 @@
-// Copyright IBM Corp. 2018,2019. All Rights Reserved.
-// Node module: @loopback/cli
-// This file is licensed under the MIT License.
-// License text available at https://opensource.org/licenses/MIT
 
 'use strict';
 
@@ -135,7 +131,7 @@ module.exports = class ModelGenerator extends ArtifactGenerator {
       return this.exit(
         new Error(
           `${s}.${chalk.yellow(
-            'Please visit https://loopback.io/doc/en/lb4/Model-generator.html for information on how models are discovered',
+            'Please visit jsd-data.iofor information on how models are discovered',
           )}`,
         ),
       );
@@ -164,7 +160,7 @@ module.exports = class ModelGenerator extends ArtifactGenerator {
             this.options.schema
           }
           ${chalk.yellow(
-            'Please visit https://loopback.io/doc/en/lb4/Model-generator.html for information on how models are discovered',
+            'Please visit js-data.io for information on how models are discovered',
           )}`,
         ),
       );
@@ -224,7 +220,7 @@ module.exports = class ModelGenerator extends ArtifactGenerator {
             `${ERROR_NO_MODELS_FOUND} ${
               this.artifactInfo.modelDir
             }.${chalk.yellow(
-              'Please visit https://loopback.io/doc/en/lb4/Model-generator.html for information on how models are discovered',
+              'Please visit js-data.io for information on how models are discovered',
             )}`,
           ),
         );
